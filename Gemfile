@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem "bootsnap", require: false
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
+gem "devise"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
