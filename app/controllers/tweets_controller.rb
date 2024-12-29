@@ -1,12 +1,14 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     result = Tweets::Commands::Create.new.call(params: tweet_params, user: current_user)
 
     case result
     in Success(:success)
-      redirect_to root_path
+      redirect_to dashboard_path
     in Failure(:invalid)
-      redirect_to root_path
+      redirect_to dashboard_path
     end
   end
 
