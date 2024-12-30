@@ -18,14 +18,28 @@ RSpec.describe "PUT /usernames/:id", type: :request do
   context "when user is signed in" do
     before { sign_in user }
 
-    it "succeed" do
-      put username_path(user), params: {
-        user: {
-          username: "username"
+    context "when username params has been passed" do
+      it "succeed" do
+        put username_path(user), params: {
+          user: {
+            username: "username"
+          }
         }
-      }
 
-      expect(response).to redirect_to(dashboard_path)
+        expect(response).to redirect_to(dashboard_path)
+      end
+    end
+
+    context "when empty username params has been passed" do
+      it "redirect back to new usernames path" do
+        put username_path(user), params: {
+          user: {
+            username: ""
+          }
+        }
+
+        expect(response).to redirect_to(new_username_path)
+      end
     end
   end
 end

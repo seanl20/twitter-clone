@@ -10,11 +10,17 @@ class UsernamesController < ApplicationController
 
     case result
     in Success(:success)
-      redirect_to dashboard_path
-    in Failure(:invalid)
+      flash[:notice] = "Username successfully updated."
       redirect_to dashboard_path
     in Failure(:not_found)
-      redirect_to dashboard_path
+      flash[:alert] = "User not found."
+      redirect_to new_username_path
+    in Failure(:empty_username)
+      flash[:alert] = "Please set a username."
+      redirect_to new_username_path
+    in Failure(invalid:)
+      flash[:alert] = invalid
+      redirect_to new_username_path
     end
   end
 
