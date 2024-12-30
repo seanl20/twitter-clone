@@ -1,15 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe "GET /dashboard", type: :request do
-  let(:user) { FactoryBot.create(:user) }
-
   context "when user is signed in" do
-    before { sign_in user }
+    context "when user have username" do
+      let(:user) { FactoryBot.create(:user, username: "username") }
 
-    it "return success" do
-      get dashboard_path
+      before { sign_in user }
 
-      expect(response).to be_successful
+      it "return success" do
+        get dashboard_path
+
+        expect(response).to be_successful
+      end
+    end
+
+    context "when user does not have username" do
+      let(:user) { FactoryBot.create(:user, username: nil) }
+
+      before { sign_in user }
+
+      it "redirect to new username path" do
+        get dashboard_path
+
+        expect(response).to redirect_to(new_username_path)
+      end
     end
   end
 
