@@ -21,6 +21,15 @@
     <% if flash.any? %>
       <%= render "shared/flashes" %>
     <% end %>
-    <%= yield %>
+    <% if user_signed_in? %>
+      <div class="container mt-3">
+        <div class="row align-items-start">
+          <%= render "shared/sidebar" %>
+          <%= yield %>
+        </div>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
