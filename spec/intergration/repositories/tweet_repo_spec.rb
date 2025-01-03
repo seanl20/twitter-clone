@@ -31,4 +31,38 @@ RSpec.describe Repositories::TweetRepo do
       end
     end
   end
+
+  describe "#create" do
+    subject(:get_by_user) { described_class.new.get_by_user(user:) }
+
+    context "when user exists" do
+      let!(:user) { FactoryBot.create(:user) }
+
+      context "user have tweets" do
+        let!(:tweet_1) { FactoryBot.create(:tweet, user:, created_at: 3.minutes.ago) }
+        let!(:tweet_2) { FactoryBot.create(:tweet, user:, created_at: 2.minutes.ago) }
+        let!(:tweet_3) { FactoryBot.create(:tweet, user:, created_at: 1.minutes.ago) }
+
+        it "create tweet" do
+          expect(get_by_user).to match_ordered_elements(tweet_3, tweet_2, tweet_1)
+        end
+      end
+
+      context "user does not have tweets" do
+        it "returns record invalid" do
+          expect(get_by_user).to be_empty
+        end
+      end
+    end
+
+    context "when user does not exists" do
+      context "user does not have tweets" do
+        let!(:user) { "Test" }
+
+        it "returns record invalid" do
+          expect(get_by_user).to be_empty
+        end
+      end
+    end
+  end
 end
