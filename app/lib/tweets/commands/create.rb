@@ -8,7 +8,7 @@ module Tweets
 
         yield create_tweet(attrs:)
 
-        Success(:success)
+        Success(tweet: user.tweets.last)
       end
 
       def create_tweet(attrs:)

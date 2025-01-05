@@ -5,8 +5,12 @@ class TweetsController < ApplicationController
     result = Tweets::Commands::Create.new.call(params: tweet_params, user: current_user)
 
     case result
-    in Success(:success)
-      redirect_to dashboard_path
+    in Success(tweet:)
+      @tweet = tweet
+      respond_to do |format|
+        format.html { redirect_to dashboard_path }
+        format.turbo_stream
+      end
     in Failure(:invalid)
       redirect_to dashboard_path
     end
