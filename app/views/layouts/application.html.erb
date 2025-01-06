@@ -22,12 +22,16 @@
       <%= render "shared/flashes" %>
     <% end %>
     <% if user_signed_in? %>
-      <div class="container mt-3">
-        <div class="row align-items-start">
-          <%= render "shared/sidebar" %>
-          <%= yield %>
+      <% if controller_name == "usernames" %>
+        <%= yield %>
+      <% else %>
+        <div class="container mt-3">
+          <div class="row align-items-start">
+            <%= render "shared/sidebar" %>
+            <%= yield %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% else %>
       <%= yield %>
     <% end %>
