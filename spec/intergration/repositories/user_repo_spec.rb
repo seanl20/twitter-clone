@@ -43,12 +43,15 @@ RSpec.describe Repositories::UserRepo do
       context "when valid attrs are passed" do
         let(:attrs) do
           {
-            username: "test"
+            username: "test",
+            display_name: "Test Account"
           }
         end
 
         it "updates user" do
-          expect { update }.to change { user.reload.username }.from(nil).to("test")
+          update
+          expect(user.reload.username).to eq("test")
+          expect(user.reload.display_name).to eq("Test Account")
         end
       end
     end
