@@ -6,7 +6,11 @@ module Users
       def call(id:, params:)
         return Failure(:empty_username) unless params[:username].present?
 
-        yield update_user(id:, attrs: Users::Changesets::Update.map(params))
+        attrs = params[:avatar] ? Users::Changesets::Update.map(params).merge({
+          avatar: params[:avatar]
+        }) : Users::Changesets::Update.map(params)
+
+        yield update_user(id:, attrs:)
 
         Success(:success)
       end
