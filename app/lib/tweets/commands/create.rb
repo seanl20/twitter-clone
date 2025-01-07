@@ -6,13 +6,11 @@ module Tweets
       def call(params:, user:)
         attrs = Tweets::Changesets::Create.map(params).merge({ user: })
 
-        yield create_tweet(attrs:)
-
-        Success(tweet: user.tweets.last)
+        Success(tweet: create_tweet(attrs:))
       end
 
       def create_tweet(attrs:)
-        Success(Repositories::TweetRepo.new.create(attrs:))
+        TweetPresenter.new(Repositories::TweetRepo.new.create(attrs:))
       rescue ActiveRecord::RecordInvalid
         Failure(:invalid)
       end

@@ -1,5 +1,5 @@
 <%= turbo_stream.prepend "tweets" do %>
-  <% render partial: "tweets/tweet", locals: { tweet: @tweet } %>
+  <% render partial: "tweets/tweet", locals: { tweet_presenter: @tweet } %>
 <% end %>
 
 <script type="application/javascript">
