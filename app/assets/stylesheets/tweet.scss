@@ -8,4 +8,36 @@
     background-color:  $gray-100;
     cursor: pointer;
   }
+
+  .action-links {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    a {
+      span {
+        position: relative;
+        top: 2px;
+      }
+
+      &.views, &.retweets, &.bookmark {
+        &:hover {
+          color: $twitter-blue !important;
+        }
+      }
+
+      &.replies {
+        &:hover {
+          color: $teal-400 !important;
+        }
+      }
+
+      &.likes {
+        &:hover {
+          color: $red-500 !important;
+        }
+      }
+    }
+  }
 }
