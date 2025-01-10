@@ -20,8 +20,9 @@ class LikesController < ApplicationController
     result = Likes::Commands::Delete.new.call(tweet:, id: params[:id])
 
     case result
-    in Success(:success)
+    in Success(tweet:)
       respond_to do |format|
+        @tweet = tweet
         format.html { redirect_to dashboard_path }
         format.turbo_stream
       end

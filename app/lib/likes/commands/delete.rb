@@ -6,7 +6,7 @@ module Likes
       def call(tweet:, id:)
         yield delete_like(tweet:, id:)
 
-        Success(:success)
+        Success(tweet: Repositories::TweetRepo.new.get(id: tweet.id))
       end
 
       def delete_like(tweet:, id:)
