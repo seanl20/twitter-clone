@@ -32,7 +32,7 @@ RSpec.describe Repositories::TweetRepo do
     end
   end
 
-  describe "#create" do
+  describe "#get_by_user" do
     subject(:get_by_user) { described_class.new.get_by_user(user:) }
 
     context "when user exists" do
@@ -62,6 +62,29 @@ RSpec.describe Repositories::TweetRepo do
         it "returns record invalid" do
           expect(get_by_user).to be_empty
         end
+      end
+    end
+  end
+
+  describe "#get" do
+    subject(:get) { described_class.new.get(id:) }
+
+    context "when tweet exists" do
+      let!(:user) { FactoryBot.create(:user) }
+      let!(:tweet) { FactoryBot.create(:tweet, user:) }
+
+      let!(:id) { tweet.id }
+
+      it "return tweet" do
+        expect(get).to eq(tweet)
+      end
+    end
+
+    context "when tweet does not exists" do
+      let!(:id) { "Test" }
+
+      it "returns record not found" do
+        expect { get }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

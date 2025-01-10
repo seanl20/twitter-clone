@@ -10,5 +10,9 @@ module Repositories
         .where(user:)
         .order(created_at: :desc)
     end
+
+    def get(id:)
+      Tweet.find(id)
+    end
   end
 end

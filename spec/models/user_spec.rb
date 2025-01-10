@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { is_expected.to have_many(:tweets).dependent(:destroy) }
+  it { is_expected.to have_many(:likes).dependent(:destroy) }
+  it { is_expected.to have_many(:liked_tweets).through(:likes).source(:tweet) }
   it { should validate_uniqueness_of(:username).case_insensitive.allow_blank }
 
   describe "#set_display_name" do
