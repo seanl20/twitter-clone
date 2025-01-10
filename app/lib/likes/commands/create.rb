@@ -13,7 +13,7 @@ module Likes
       end
 
       def create_like(attrs:)
-        TweetPresenter.new(Repositories::LikeRepo.new.create(attrs:))
+        Repositories::LikeRepo.new.create(attrs:)
       rescue ActiveRecord::RecordInvalid
         Failure(:invalid)
       end
