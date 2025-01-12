@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Repositories::LikeRepo do
+RSpec.describe Repositories.retweetRepo do
   describe "#create" do
     subject(:create) { described_class.new.create(attrs:) }
 
@@ -15,8 +15,8 @@ RSpec.describe Repositories::LikeRepo do
         }
       end
 
-      it "create like" do
-        expect { create }.to change { Like.count }.by(1)
+      it "create retweet" do
+        expect { create }.to change { Retweet.count }.by(1)
       end
     end
 
@@ -39,17 +39,17 @@ RSpec.describe Repositories::LikeRepo do
     let!(:user) { FactoryBot.create(:user) }
     let!(:tweet) { FactoryBot.create(:tweet, user:) }
 
-    let!(:like) { FactoryBot.create(:like, user:, tweet:) }
+    let!(:retweet) { FactoryBot.create(:retweet, user:, tweet:) }
 
-    context "when like exists" do
-      let(:id) { like.id }
+    context "when retweet exists" do
+      let(:id) { retweet.id }
 
       it "delete tweet" do
-        expect { delete_by_tweet }.to change { Like.count }.by(-1)
+        expect { delete_by_tweet }.to change { retweet.count }.by(-1)
       end
     end
 
-    context "when like does not exists" do
+    context "when retweet does not exists" do
       let(:id) { "test" }
 
       it "returns record invalid" do
