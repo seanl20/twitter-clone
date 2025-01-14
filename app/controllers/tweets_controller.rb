@@ -1,6 +1,10 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @tweet = Tweets::Queries::Get.new.call(id: params[:id])
+  end
+
   def create
     result = Tweets::Commands::Create.new.call(params: tweet_params, user: current_user)
 
