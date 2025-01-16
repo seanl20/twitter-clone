@@ -10,7 +10,7 @@ class TweetPresenter
   attr_reader :tweet, :current_user
 
   delegate :user, :body, :likes_count, :retweets_count, to: :tweet
-  delegate :display_name, :username, :avatar, to: :user
+  delegate :display_name, :username, to: :user
 
   def created_at
     if (Time.zone.now - tweet.created_at) > 1.day
@@ -20,11 +20,11 @@ class TweetPresenter
     end
   end
 
-  def like_tweet_url
+  def like_tweet_url(source: "dashboard/index")
     if tweet_liked_by_user?
-      tweet_like_path(tweet, current_user.likes.find_by(tweet:))
+      tweet_like_path(tweet, current_user.likes.find_by(tweet:), source:)
     else
-      tweet_likes_path(tweet)
+      tweet_likes_path(tweet, source:)
     end
   end
 
@@ -36,11 +36,11 @@ class TweetPresenter
     end
   end
 
-  def retweet_tweet_url
+  def retweet_tweet_url(source: "dashboard/index")
     if tweet_retweeted_by_user?
-      tweet_retweet_path(tweet, current_user.retweets.find_by(tweet:))
+      tweet_retweet_path(tweet, current_user.retweets.find_by(tweet:), source:)
     else
-      tweet_retweets_path(tweet)
+      tweet_retweets_path(tweet, source:)
     end
   end
 
@@ -98,6 +98,12 @@ class TweetPresenter
     else
       "Bookmark"
     end
+  end
+
+  def avatar
+    return user.avatar if user.avatar.present?
+
+    ActionController::Base.helpers.asset_path("user.png")
   end
 
   private

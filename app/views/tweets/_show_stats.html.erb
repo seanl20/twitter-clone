@@ -22,19 +22,19 @@
         <% end %>
       </div>
       <div>
-        <%= link_to tweet_presenter.retweet_tweet_url, data: { "turbo-method": tweet_presenter.turbo_retweet_data_method }, class: "text-decoration-none #{tweet_presenter.retweet_colour_class} retweets" do %>
+        <%= link_to tweet_presenter.retweet_tweet_url(source: "tweet_show"), data: { "turbo-method": tweet_presenter.turbo_retweet_data_method }, class: "text-decoration-none #{tweet_presenter.retweet_colour_class} retweets" do %>
           <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" viewBox="0 0 32 32" stroke-width="1.5" stroke="currentColor" class="size-6 me-1">
             <path d="M 5 7 L 0 12 L 4 12 L 4 25 L 21 25 L 19 23 L 6 23 L 6 12 L 10 12 Z M 9 7 L 11 9 L 24 9 L 24 20 L 20 20 L 25 25 L 30 20 L 26 20 L 26 7 Z"/>
           </svg>
         <% end %>
       </div>
       <div>
-        <%= link_to tweet_presenter.like_tweet_url, data: { "turbo-method": tweet_presenter.turbo_like_data_method }, class: "text-decoration-none text-black likes" do %>
+        <%= link_to tweet_presenter.like_tweet_url(source: "tweet_show"), data: { "turbo-method": tweet_presenter.turbo_like_data_method }, class: "text-decoration-none text-black likes" do %>
           <%= render partial: tweet_presenter.heart_icon %>
         <% end %>
       </div>
       <div>
-        <%= link_to tweet_presenter.bookmark_tweet_url(source: "tweets/show"), data: { "turbo-method": tweet_presenter.turbo_bookmark_data_method }, class: "text-decoration-none text-black bookmark" do %>
+        <%= link_to tweet_presenter.bookmark_tweet_url(source: "tweet_show"), data: { "turbo-method": tweet_presenter.turbo_bookmark_data_method }, class: "text-decoration-none text-black bookmark" do %>
           <%= render partial: tweet_presenter.bookmark_icon %>
         <% end %>
       </div>

@@ -23,6 +23,10 @@
         top: 2px;
       }
 
+      .bookmark-filled {
+        color: $twitter-blue !important;
+      }
+
       &.views, &.retweets, &.bookmark {
         &:hover {
           color: $twitter-blue !important;
