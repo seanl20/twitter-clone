@@ -2,8 +2,7 @@ class TweetsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @tweet = Tweets::Queries::Get.new.call(id: params[:id])
-    @tweet_presenter = TweetPresenter.new(tweet: @tweet, current_user:)
+    @tweet_presenter = Tweets::Queries::Get.new.call(id: params[:id], user: current_user)
   end
 
   def create

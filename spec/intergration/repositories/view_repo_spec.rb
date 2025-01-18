@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Repositories::RetweetRepo do
+RSpec.describe Repositories::ViewRepo do
   describe "#create" do
     subject(:create) { described_class.new.create(attrs:) }
 
@@ -15,8 +15,8 @@ RSpec.describe Repositories::RetweetRepo do
         }
       end
 
-      it "create retweet" do
-        expect { create }.to change { Retweet.count }.by(1)
+      it "create view" do
+        expect { create }.to change { View.count }.by(1)
       end
     end
 
@@ -33,27 +33,23 @@ RSpec.describe Repositories::RetweetRepo do
     end
   end
 
-  describe "#delete_by_tweet" do
-    subject(:delete_by_tweet) { described_class.new.delete_by_tweet(tweet:, id:) }
+  describe "#exists?" do
+    subject(:exists) { described_class.new.exists?(tweet:, user:) }
 
     let!(:user) { FactoryBot.create(:user) }
     let!(:tweet) { FactoryBot.create(:tweet, user:) }
 
-    let!(:retweet) { FactoryBot.create(:retweet, user:, tweet:) }
+    context "when view exists" do
+      let!(:view) { FactoryBot.create(:view, tweet:, user:) }
 
-    context "when retweet exists" do
-      let(:id) { retweet.id }
-
-      it "delete tweet" do
-        expect { delete_by_tweet }.to change { retweet.count }.by(-1)
+      it "return true" do
+        expect(exists).to be true
       end
     end
 
-    context "when retweet does not exists" do
-      let(:id) { "test" }
-
-      it "returns record invalid" do
-        expect { delete_by_tweet }.to raise_error(ActiveRecord::RecordNotFound)
+    context "when view does not exists" do
+      it "return false" do
+        expect(exists).to be false
       end
     end
   end
