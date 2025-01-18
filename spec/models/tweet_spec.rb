@@ -10,4 +10,6 @@ RSpec.describe Tweet, type: :model do
   it { is_expected.to have_many(:bookmarked_users).through(:bookmarks).source(:user) }
   it { is_expected.to have_many(:retweets).dependent(:destroy) }
   it { is_expected.to have_many(:retweeted_users).through(:retweets).source(:user) }
+  it { is_expected.to have_many(:views).dependent(:destroy) }
+  it { is_expected.to have_many(:viewed_users).through(:views).source(:user) }
 end
