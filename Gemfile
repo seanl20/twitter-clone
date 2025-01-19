@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem "bootsnap", require: false
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
+gem "delayed_job_active_record"
 gem "devise"
 gem "dry-monads"
 gem "dry-rails", github: "dry-rb/dry-rails"
