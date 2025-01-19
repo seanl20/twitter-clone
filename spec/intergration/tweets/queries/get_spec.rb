@@ -10,6 +10,10 @@ RSpec.describe Tweets::Queries::Get, "#call", :db do
   let!(:user) { FactoryBot.create(:user) }
   let!(:tweet) { FactoryBot.create(:tweet, user:) }
 
+  before do
+    allow(ViewTweetJob).to receive(:perform_later)
+  end
+
   context "when tweet exists" do
     let(:id) { tweet.id }
 
@@ -17,18 +21,10 @@ RSpec.describe Tweets::Queries::Get, "#call", :db do
       expect(call.tweet).to eq(tweet)
     end
 
-    context "when view exists" do
-      let!(:view) { FactoryBot.create(:view, tweet:, user:) }
+    it "queses up view tweet job" do
+      call
 
-      it "create view" do
-        expect { call }.to change { View.count }.by(0)
-      end
-    end
-
-    context "when view doesn't exists" do
-      it "create view" do
-        expect { call }.to change { View.count }.by(1)
-      end
+      expect(ViewTweetJob).to have_received(:perform_later).with(tweet:, user:)
     end
   end
 
