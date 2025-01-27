@@ -16,13 +16,17 @@
       <p class="fs-2 mb-1"><%= @tweet_presenter.body %></p>
       <p class="text-muted"><%= @tweet_presenter.tweet.created_at.strftime("%l:%M %p") %> . <%= @tweet_presenter.tweet.created_at.strftime("%b %d, %Y") %></p>
 
-      <div id="turbo-show-stats">
+      <div id="tweets_stats">
         <%= render "tweets/show_stats", tweet_presenter: @tweet_presenter %>
       </div>
     </div>
   </div>
 
   <%= render "shared/tweet_form", form_submit_path: tweet_reply_tweets_path(@tweet_presenter.tweet), button_label: "Reply" %>
+
+  <div id="reply_tweets">
+    <%= render partial: "tweets/tweet", collection: @reply_tweets_in_presenter, as: :tweet_presenter %>
+  </div>
 </div>
 <div class="col">
   One of three columns

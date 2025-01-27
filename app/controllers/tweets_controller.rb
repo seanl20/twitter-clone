@@ -3,6 +3,7 @@ class TweetsController < ApplicationController
 
   def show
     @tweet_presenter = Tweets::Queries::Get.new.call(id: params[:id], user: current_user)
+    @reply_tweets_in_presenter = ReplyTweets::Queries::GetAll.new.call(id: params[:id], user: current_user)
   end
 
   def create
