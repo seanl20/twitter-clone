@@ -40,7 +40,7 @@
     </div>
   <% end %>
 
-  <%= link_to root_path, class: "d-flex align-items-center fs-5 mb-2" do %>
+  <%= link_to profile_path, class: "d-flex align-items-center fs-5 mb-2" do %>
     <div class="rounded-pill px-4 py-2">
       <span class="me-2 position-relative" style="bottom: 3px;"><%= image_tag "user-white.png", width: "32" %></span>
       <span>Profile</span>
@@ -48,7 +48,7 @@
   <% end %>
 
   <div class="d-flex align-items-center fs-5 mb-3 px-4">
-    <%= button_tag "Tweet", class: "btn btn-twitter btn-lg rounded-pill w-100", data: { "bs-toggle": "modal", "bs-target": "#exampleModal" } %>
+    <%= button_tag "Tweet", class: "btn btn-twitter btn-lg rounded-pill w-100", data: { "bs-toggle": "modal", "bs-target": "#tweetModal" } %>
   </div>
 
   <div class="d-flex align-items-center fs-6 px-4">
@@ -57,7 +57,7 @@
 </aside>
 
 <!-- Modal -->
-<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="tweetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header border-bottom-0">
