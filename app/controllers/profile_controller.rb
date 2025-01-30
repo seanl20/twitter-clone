@@ -9,11 +9,15 @@ class ProfileController < ApplicationController
 
     case result
     in Success(:success)
-      redirect_to profile_path
+      respond_to do |format|
+        format.html { redirect_to profile_path }
+        format.turbo_stream
+      end
     in Failure(:empty_username)
-      redirect_to profile_path
-    in Failure(invalid:)
-      redirect_to profile_path
+      respond_to do |format|
+        format.html { redirect_to profile_path }
+        format.turbo_stream
+      end
     end
   end
 
