@@ -10,6 +10,11 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:retweeted_tweets).through(:retweets).source(:tweet) }
   it { is_expected.to have_many(:views) }
   it { is_expected.to have_many(:viewed_tweets).through(:views).source(:tweet) }
+  it { is_expected.to have_many(:followings).dependent(:destroy) }
+  it { is_expected.to have_many(:following_users).through(:followings).source(:following_user) }
+  it { is_expected.to have_many(:reverse_followings).with_foreign_key(:following_user_id).class_name("Following") }
+  it { is_expected.to have_many(:followers).through(:reverse_followings).source(:user) }
+
   it { should validate_uniqueness_of(:username).case_insensitive.allow_blank }
 
   describe "#set_display_name" do
