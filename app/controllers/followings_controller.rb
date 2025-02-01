@@ -6,7 +6,11 @@ class FollowingsController < ApplicationController
 
     case result
     in Success(user:)
-      redirect_to user_path(user)
+      @user = user
+      respond_to do |format|
+        format.html { redirect_to user_path(user) }
+        format.turbo_stream
+      end
     in Failure(:invalid)
       redirect_to user_path(following_user)
     end
@@ -17,7 +21,11 @@ class FollowingsController < ApplicationController
 
     case result
     in Success(user:)
-      redirect_to user_path(user)
+      @user = user
+      respond_to do |format|
+        format.html { redirect_to user_path(user) }
+        format.turbo_stream
+      end
     end
   end
 
