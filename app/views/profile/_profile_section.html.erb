@@ -1,4 +1,4 @@
-<%= turbo_frame_tag dom_id(user) do %>
+<%= turbo_frame_tag "user-section" do %>
   <p class="fs-3 fw-semibold mb-0"><%= user.reload.display_name %></p>
   <p class="text-muted">@<%= user.reload.username %></p>
   <p><%= user.reload.bio %></p>
@@ -16,7 +16,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
       </svg>
 
-      <span><%= link_to user.reload.url, user.reload.url, target: :_blank %></span>
+      <span><%= link_to user.reload.profile_url, user.reload.profile_url, target: :_blank %></span>
     </div>
     <div class="me-4">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 me-1" style="width: 20px; height: 20px;">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="d-flex justify-content-start">
-    <div class="me-4"><span class="fw-semibold">14</span> Following</div>
-    <div><span class="fw-semibold">35</span> Followers</div>
+    <div class="me-4"><span class="fw-semibold"><%= user.reload.following_count %></span> Following</div>
+    <div><span class="fw-semibold"><%= user.reload.follower_count %></span> Followers</div>
   </div>
 <% end %>
