@@ -31,7 +31,7 @@ class ProfileController < ApplicationController
       :password,
       :location,
       :bio,
-      :url
+      :profile_url
     )
   end
 end
