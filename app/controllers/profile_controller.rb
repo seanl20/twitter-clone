@@ -2,10 +2,14 @@ class ProfileController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @user, @tweet_presenters = Users::Queries::GetUserAndTweets.new.call(id: current_user.id)
+
+    render "users/show"
   end
 
   def update
-    result = Users::Commands::Update.new.call(id: current_user.id, params: user_params)
+    @user = current_user
+    result = Users::Commands::Update.new.call(id: @user.id, params: user_params)
 
     case result
     in Success(:success)
