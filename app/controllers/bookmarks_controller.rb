@@ -1,6 +1,10 @@
 class BookmarksController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @bookmarked_tweets = Bookmarks::Queries::GetTweetsByUser.new.call(user: current_user)
+  end
+
   def create
     result = Bookmarks::Commands::Create.new.call(tweet:, user: current_user)
 

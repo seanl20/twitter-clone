@@ -10,5 +10,9 @@ module Repositories
         .find(id)
         .destroy
     end
+
+    def get_tweets_by_user(user:)
+      Tweet.where(id: Bookmark.where(user:).pluck(:tweet_id))
+    end
   end
 end

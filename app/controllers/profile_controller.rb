@@ -11,6 +11,10 @@ class ProfileController < ApplicationController
     @user = current_user
     result = Users::Commands::Update.new.call(id: @user.id, params: user_params)
 
+    @tweet_presenters = @user.tweets.map do |tweet|
+      TweetPresenter.new(tweet:, current_user: @user)
+    end
+
     case result
     in Success(:success)
       respond_to do |format|
@@ -35,7 +39,8 @@ class ProfileController < ApplicationController
       :password,
       :location,
       :bio,
-      :profile_url
+      :profile_url,
+      :avatar
     )
   end
 end
