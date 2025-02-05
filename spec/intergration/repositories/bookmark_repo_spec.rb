@@ -57,4 +57,46 @@ RSpec.describe Repositories::BookmarkRepo do
       end
     end
   end
+
+  describe "#get_tweets_by_user" do
+    subject(:get_tweets_by_user) { described_class.new.get_tweets_by_user(user:) }
+
+    context "when user exists" do
+      let!(:user_1) { FactoryBot.create(:user) }
+      let!(:user_2) { FactoryBot.create(:user) }
+
+      let!(:user) { user_1 }
+
+      context "user have tweets" do
+        let!(:tweet_1) { FactoryBot.create(:tweet, user: user_1) }
+        let!(:tweet_2) { FactoryBot.create(:tweet, user: user_1) }
+        let!(:tweet_3) { FactoryBot.create(:tweet, user: user_1) }
+
+        let!(:bookmark_1) { FactoryBot.create(:bookmark, user: user_1, tweet: tweet_1) }
+        let!(:bookmark_2) { FactoryBot.create(:bookmark, user: user_1, tweet: tweet_2) }
+        let!(:bookmark_3) { FactoryBot.create(:bookmark, user: user_2, tweet: tweet_3) }
+
+
+        it "returns tweets that are bookmarked by the user" do
+          expect(get_tweets_by_user).to match_unordered_elements(tweet_1, tweet_2)
+        end
+      end
+
+      context "user does not have bookmarks" do
+        it "returns record invalid" do
+          expect(get_tweets_by_user).to be_empty
+        end
+      end
+    end
+
+    context "when user does not exists" do
+      context "user does not have bookmarks" do
+        let!(:user) { "Test" }
+
+        it "returns record invalid" do
+          expect(get_tweets_by_user).to be_empty
+        end
+      end
+    end
+  end
 end
