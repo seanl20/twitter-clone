@@ -14,4 +14,5 @@ RSpec.describe Tweet, type: :model do
   it { is_expected.to have_many(:viewed_users).through(:views).source(:user) }
   it { is_expected.to belong_to(:parent_tweet).with_foreign_key(:parent_tweet_id).class_name("Tweet").inverse_of(:reply_tweets).optional }
   it { is_expected.to have_many(:reply_tweets).with_foreign_key(:parent_tweet_id).class_name("Tweet") }
+  it { should have_and_belong_to_many(:hashtags) }
 end

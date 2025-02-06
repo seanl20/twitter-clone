@@ -5,9 +5,9 @@
     </div>
   <% end %>
 
-  <%= link_to root_path, class: "d-flex align-items-center fs-5 mb-2" do %>
+  <%= link_to root_path, class: "d-flex align-items-center fs-5 mb-2 #{nav_link_active?('dashboard')}" do %>
     <div class="rounded-pill px-4 py-2">
-      <span class="me-2 position-relative" style="bottom: 3px;"><%= image_tag "home-black.png", width: "32" %></span>
+      <span class="me-2 position-relative" style="bottom: 3px;"><%= image_tag "home-white.png", width: "32" %></span>
       <span>Home</span>
     </div>
   <% end %>
@@ -33,14 +33,14 @@
     </div>
   <% end %>
 
-  <%= link_to bookmarks_path, class: "d-flex align-items-center fs-5 mb-2" do %>
+  <%= link_to bookmarks_path, class: "d-flex align-items-center fs-5 mb-2 #{nav_link_active?('bookmarks')}" do %>
     <div class="rounded-pill px-4 py-2">
       <span class="me-2 position-relative" style="bottom: 3px;"><%= image_tag "bookmark-white.png", width: "32" %></span>
       <span>Bookmarks</span>
     </div>
   <% end %>
 
-  <%= link_to profile_path, class: "d-flex align-items-center fs-5 mb-2" do %>
+  <%= link_to profile_path, class: "d-flex align-items-center fs-5 mb-2 #{nav_link_active?('profile')}" do %>
     <div class="rounded-pill px-4 py-2">
       <span class="me-2 position-relative" style="bottom: 3px;"><%= image_tag "user-white.png", width: "32" %></span>
       <span>Profile</span>
