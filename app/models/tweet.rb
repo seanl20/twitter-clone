@@ -18,4 +18,17 @@ class Tweet < ApplicationRecord
               counter_cache: :reply_tweets_count
   has_many :reply_tweets, foreign_key: :parent_tweet_id, class_name: "Tweet"
   has_and_belongs_to_many :hashtags
+
+  before_save :parse_and_save_hashtags
+
+  def parse_and_save_hashtags
+    matches = body.scan(Constants::Regexp::HASHTAG_REGEX)
+    return if matches.empty?
+
+    matches.flatten.each do |tag|
+      attrs = { tag: tag.delete("#") }
+
+      Repositories::HashtagRepo.new.find_or_create(attrs:)
+    end
+  end
 end
