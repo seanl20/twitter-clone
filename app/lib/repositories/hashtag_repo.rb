@@ -5,7 +5,7 @@ module Repositories
     end
 
     def get_all
-      Hashtag.all
+      Hashtag.includes(:tweets).all
     end
   end
 end

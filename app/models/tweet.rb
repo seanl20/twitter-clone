@@ -28,7 +28,7 @@ class Tweet < ApplicationRecord
     matches.flatten.each do |tag|
       attrs = { tag: tag.delete("#") }
 
-      Repositories::HashtagRepo.new.find_or_create(attrs:)
+      hashtags << Repositories::HashtagRepo.new.find_or_create(attrs:)
     end
   end
 end
