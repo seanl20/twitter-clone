@@ -31,4 +31,24 @@ RSpec.describe Repositories::HashtagRepo do
       end
     end
   end
+
+
+  describe "#get_all" do
+    subject(:get_all) { described_class.new.get_all }
+
+    context "when multiple hashtags exists" do
+      let!(:hashtag_1) { FactoryBot.create(:hashtag, tag: "test") }
+      let!(:hashtag_2) { FactoryBot.create(:hashtag, tag: "time") }
+
+      it "returns hashtags" do
+        expect(get_all).to match_unordered_elements(hashtag_1, hashtag_2)
+      end
+    end
+
+    context "when no hashtags exists" do
+      it "return empty" do
+        expect(get_all).to be_empty
+      end
+    end
+  end
 end
