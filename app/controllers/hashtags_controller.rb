@@ -4,4 +4,7 @@ class HashtagsController < ApplicationController
   def index
     @hashtags = Hashtags::Queries::GetAll.new.call
   end
+
+  def show
+  end
 end
