@@ -6,5 +6,6 @@ class HashtagsController < ApplicationController
   end
 
   def show
+    @hashtag, @tweet_presenters = Hashtags::Queries::HashtagById.new.call(id: params[:id], user: current_user)
   end
 end

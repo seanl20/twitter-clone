@@ -7,5 +7,13 @@ module Repositories
     def get_all
       Hashtag.includes(:tweets).all
     end
+
+    def get_all_with_limit(limit: nil)
+      Hashtag.includes(:tweets).all.limit(limit)
+    end
+
+    def get(id:)
+      Hashtag.includes(:tweets).find(id)
+    end
   end
 end
