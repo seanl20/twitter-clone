@@ -14,6 +14,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:following_users).through(:followings).source(:following_user) }
   it { is_expected.to have_many(:reverse_followings).with_foreign_key(:following_user_id).class_name("Following") }
   it { is_expected.to have_many(:followers).through(:reverse_followings).source(:user) }
+  it { is_expected.to have_many(:messages) }
+  it { is_expected.to have_and_belong_to_many(:message_threads) }
 
   it { should validate_uniqueness_of(:username).case_insensitive.allow_blank }
 
