@@ -20,7 +20,13 @@
       <% if controller_name == "profile" %>
         <%= button_tag 'Edit Profile', data: { "bs-toggle": "modal", "bs-target": "#profile-edit-modal" }, class: "btn btn-twitter-outline rounded-pill" %>
       <% else %>
-        <%= render "users/follow_button", user: @user, current_user: %>
+        <div>
+          <div class="btn btn-twitter-outline rounded-pill" data-controller="message-threads" data-message-url="<%= message_threads_path(user_id: @user.id) %>">
+            <%= image_tag "messages-white.png", size: "25x25", data: { "turbolinks": false } %>
+            Message
+          </div>
+          <%= render "users/follow_button", user: @user, current_user: %>
+        </div>
       <% end %>
     </div>
   </div>
