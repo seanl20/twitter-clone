@@ -24,8 +24,8 @@
       <% if controller_name == "usernames" %>
         <%= yield %>
       <% else %>
-        <div class="container mt-3">
-          <div class="row align-items-start">
+        <div class="container py-2 vh-100">
+          <div class="row">
             <%= render "shared/sidebar" %>
             <%= yield %>
           </div>
