@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :message do
-    user { nil }
+    association :user
     body { "MyText" }
   end
 end
