@@ -37,6 +37,5 @@ Rails.application.routes.draw do
   resources :message_threads, only: :index, path: "/messages" do
     resources :messages, only: :index
   end
-
   resources :messages, only: :create
 end
