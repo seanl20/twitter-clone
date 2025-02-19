@@ -14,7 +14,7 @@ export default class extends Controller {
         fetch(`/messages/${messageThread.dataset.messageThreadId}/messages`, {headers: this.headers})
           .then(response => response.text())
           .then(html => Turbo.renderStreamMessage(html));
-      })
-    })
+      });
+    });
   }
 }

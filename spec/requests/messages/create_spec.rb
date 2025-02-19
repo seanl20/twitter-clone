@@ -28,7 +28,7 @@ RSpec.describe "POST /messages", type: :request do
         }
       }
 
-      expect(response).to have_http_status(:no_content)
+      expect(response).to redirect_to(dashboard_path)
     end
   end
 end
