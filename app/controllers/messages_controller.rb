@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @messages = Messages::Queries::GetByMessageThread.new.call(message_thread_id: params[:message_thread_id])
+    @messages, @user = Messages::Queries::MessageIndex.new.call(message_thread_id: params[:message_thread_id], current_user:)
 
     respond_to do |format|
       format.turbo_stream
@@ -10,7 +10,12 @@ class MessagesController < ApplicationController
   end
 
   def create
-    Messages::Commands::Create.new.call(params: message_params, user_id: params[:user_id], current_user:)
+    @message = Messages::Commands::Create.new.call(params: message_params, user_id: params[:user_id], current_user:)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to dashboard_path }
+    end
   end
 
   private
