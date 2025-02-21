@@ -9,7 +9,7 @@ module Repositories
     end
 
     def get_by_ids(ids:)
-      MessageThread.includes(:users, :messages).where(id: ids)
+      MessageThread.includes(:users, :messages).where(id: ids).order(messages: { created_at: :desc })
     end
   end
 end

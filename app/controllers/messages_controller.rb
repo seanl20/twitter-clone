@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @messages, @user = Messages::Queries::MessageIndex.new.call(message_thread_id: params[:message_thread_id], current_user:)
+    @messages, @user = Messages::Queries::MessageIndex.new.call(message_thread_id: params[:message_thread_id], current_user:, other_user_id: params[:other_user_id])
 
     respond_to do |format|
       format.turbo_stream
