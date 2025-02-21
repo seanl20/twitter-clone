@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { isEmpty } from 'lodash-es';
 
 // Connects to data-controller="messages"
 export default class extends Controller {
@@ -17,9 +18,13 @@ export default class extends Controller {
 
         messageThread.classList.add('active');
 
-        fetch(`/messages/${messageThread.dataset.messageThreadId}/messages`, {headers: this.headers})
-          .then(response => response.text())
-          .then(html => Turbo.renderStreamMessage(html));
+        if (!isEmpty(messageThread.dataset.messageThreadId)) {
+          fetch(`/messages/${messageThread.dataset.messageThreadId}/messages?other_user_id=${messageThread.dataset.messagesTargetUserId}`, 
+            {headers: this.headers}
+          )
+            .then(response => response.text())
+            .then(html => Turbo.renderStreamMessage(html));
+        }
       });
     });
 
