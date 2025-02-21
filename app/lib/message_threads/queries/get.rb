@@ -6,10 +6,12 @@ module MessageThreads
       def call(user_id:, current_user:)
         message_thread_ids = get_message_thread_ids(user: current_user)
 
-        message_threads = Repositories::MessageThreadRepo.new.get_by_ids(ids: message_thread_ids)
+        message_threads = Repositories::MessageThreadRepo.new.get_by_ids(ids: message_thread_ids).to_a
 
-        if user_id
+        if user_id && !message_threads.map(&:users).flatten.map(&:id).flatten.include?(user_id.to_i)
           new_message_thread_user = Repositories::UserRepo.new.get(id: user_id)
+
+          message_threads.unshift(MessageThread.new)
 
           return new_message_thread_user, message_threads
         else
