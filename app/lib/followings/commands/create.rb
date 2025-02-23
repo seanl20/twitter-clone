@@ -9,9 +9,21 @@ module Followings
           user_id: user.id
         }
 
-        yield create_following(attrs:)
+        following_user = Repositories::UserRepo.new.get(id: params[:following_user_id])
 
-        Success(user: Repositories::UserRepo.new.get(id: params[:following_user_id]))
+        ActiveRecord::Base.transaction do
+          yield create_following(attrs:)
+
+          notification_attrs = {
+            user_id: params[:following_user_id],
+            actor_id: user.id,
+            verb: Constants::Notification::VERBS[:follow]
+          }
+
+          Repositories::NotificationRepo.new.create(attrs: notification_attrs)
+        end
+
+        Success(user: following_user)
       end
 
       def create_following(attrs:)

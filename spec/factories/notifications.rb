@@ -3,6 +3,6 @@ FactoryBot.define do
     association :user
     association :actor
     tweet { nil }
-    verb { "MyString" }
+    verb { Constants::Notification::VERBS[:follow] }
   end
 end

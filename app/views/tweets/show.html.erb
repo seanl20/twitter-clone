@@ -8,11 +8,15 @@
 
   <div data-tweet-path="<%= tweet_path(@tweet_presenter.tweet) %>" class="d-flex py-4 px-4 tweet">
     <div class="flex-shrink-0">
-      <%= image_tag @tweet_presenter.avatar, size: "48x48", class: "rounded-circle" %>
+      <%= link_to user_path(@tweet_presenter.user) do %>
+        <%= image_tag @tweet_presenter.avatar, size: "48x48", class: "rounded-circle" %>
+      <% end %>
     </div>
     <div class="flex-grow-1 ms-3">
-      <p class="fw-bolder mb-0"><%= @tweet_presenter.display_name %></p>
-      <p class="text-secondary mb-1">@<%= @tweet_presenter.username %></p>
+      <%= link_to user_path(@tweet_presenter.user), class:"tweet-profile-link text-decoration-none" do %>
+        <p class="fw-bolder mb-0"><%= @tweet_presenter.display_name %></p>
+        <p class="text-secondary mb-1">@<%= @tweet_presenter.username %></p>
+      <% end %>
       <%= @tweet_presenter.body_html(p_classes: "fs-2 mb-1").html_safe %>
       <p class="text-muted"><%= @tweet_presenter.tweet.created_at.strftime("%l:%M %p") %> . <%= @tweet_presenter.tweet.created_at.strftime("%b %d, %Y") %></p>
 
