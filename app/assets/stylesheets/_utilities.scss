@@ -7,3 +7,15 @@ a.twitter-link {
     cursor: pointer;
   }
 }
+
+a.tweet-profile-link {
+  p {
+    color: black !important;
+    text-decoration: none !important;
+  }
+
+  &:hover {
+    text-decoration: underline !important;
+    cursor: pointer;
+  }
+}
