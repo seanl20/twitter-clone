@@ -6,6 +6,7 @@ module Repositories
 
     def get_by_user(user:)
       Notification
+        .includes(:user)
         .where(user:)
         .order(created_at: :desc)
     end
