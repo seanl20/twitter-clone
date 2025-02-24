@@ -4,7 +4,20 @@
   </div>
   <div>
     <% @notifications.each do |notification| %>
-      <p><%= notification.id %></p>
+      <% if notification.follow? %>
+        <div class="d-flex">
+          <% if notification.actor.avatar.present? %>
+            <%= image_tag current_user.avatar, size: "48x48", class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag "user.png", size: "48x48", class: "rounded-circle" %>
+          <% end %>
+        </div>
+        <p><span class="fw-bold"><%= notification.actor.display_name %></span> followed you</p>
+      <% elsif notification.liked? %>
+        <div class="d-flex"></div>
+      <% elsif notification.metioned? %>
+        <div class="d-flex"></div>
+      <% end %>
     <% end %>
   </div>
 </div>
