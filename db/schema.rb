@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_22_140610) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_25_144421) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,6 +101,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_22_140610) do
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id", "tweet_id"], name: "index_likes_on_user_id_and_tweet_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "mentions", force: :cascade do |t|
+    t.bigint "tweet_id", null: false
+    t.bigint "mentioned_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mentioned_user_id"], name: "index_mentions_on_mentioned_user_id"
+    t.index ["tweet_id"], name: "index_mentions_on_tweet_id"
   end
 
   create_table "message_threads", force: :cascade do |t|
@@ -201,6 +210,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_22_140610) do
   add_foreign_key "followings", "users", column: "following_user_id"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
+  add_foreign_key "mentions", "tweets"
+  add_foreign_key "mentions", "users", column: "mentioned_user_id"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users"
   add_foreign_key "notifications", "tweets"

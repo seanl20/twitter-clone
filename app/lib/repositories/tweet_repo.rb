@@ -11,6 +11,13 @@ module Repositories
         .order(created_at: :desc)
     end
 
+    def get_all
+      Tweet
+        .includes(:liked_users, :bookmarked_users, :retweeted_users, :user)
+        .all
+        .order(created_at: :desc)
+    end
+
     def get(id:)
       Tweet.find(id)
     end

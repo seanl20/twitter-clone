@@ -15,6 +15,8 @@ RSpec.describe Tweet, type: :model do
   it { is_expected.to belong_to(:parent_tweet).with_foreign_key(:parent_tweet_id).class_name("Tweet").inverse_of(:reply_tweets).optional }
   it { is_expected.to have_many(:reply_tweets).with_foreign_key(:parent_tweet_id).class_name("Tweet") }
   it { should have_and_belong_to_many(:hashtags) }
+  it { is_expected.to have_many(:mentions).dependent(:destroy) }
+  it { is_expected.to have_many(:mentioned_users).through(:mentions) }
 
   describe "#parse_and_save_hashtags" do
     let(:user) { FactoryBot.create(:user) }
@@ -49,6 +51,31 @@ RSpec.describe Tweet, type: :model do
         expect do
           Tweet.create(user:, body: "Hashtags #Test #Time")
         end.to change { Hashtag.count }.by(1)
+      end
+    end
+  end
+
+  describe "#parse_and_save_mentions" do
+    let(:user) { FactoryBot.create(:user, username: "testuser") }
+
+    context "when there are no mentions in body" do
+      it "does not create any mentions" do
+        expect do
+          Tweet.create(user:, body: "Hashtags Test Time")
+        end.not_to change { Mention.count }
+      end
+    end
+
+    context "when there are mentions in body" do
+      it "create mentions" do
+        expect do
+          Tweet.create(user:, body: "Mentions @testuser")
+        end.to change { Mention.count }.by(1)
+      end
+
+      it "creates mentions assigned to the tweet" do
+        tweet = Tweet.create(user:, body: "Mentions @testuser")
+        expect(tweet.mentions.size).to eq(1)
       end
     end
   end
