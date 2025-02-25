@@ -9,5 +9,9 @@ module Repositories
         .find(id)
         .update!(attrs)
     end
+
+    def get_by_username(username:)
+      User.find_by(username:)
+    end
   end
 end

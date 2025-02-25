@@ -72,4 +72,28 @@ RSpec.describe Repositories::UserRepo do
       end
     end
   end
+
+  describe "#get_by_username" do
+    subject(:get_by_username) { described_class.new.get_by_username(username:) }
+
+    context "user exists" do
+      let!(:user) { FactoryBot.create(:user, username: "testuser") }
+
+      context "when valid id are passed" do
+        let(:username) { "testuser" }
+
+        it "get_by_username tweet" do
+          expect(get_by_username).to eq(user)
+        end
+      end
+    end
+
+    context "user does not exists" do
+      let(:username) { 1 }
+
+      it "returns record not found" do
+        expect(get_by_username).to eq(nil)
+      end
+    end
+  end
 end

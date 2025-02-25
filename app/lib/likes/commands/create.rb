@@ -4,12 +4,25 @@ module Likes
   module Commands
     class Create < Command
       def call(tweet:, user:)
-        attrs = {
-          tweet:,
-          user:
-        }
+        ActiveRecord::Base.transaction do
+          attrs = {
+            tweet:,
+            user:
+          }
 
-        Success(like: create_like(attrs:))
+          like = create_like(attrs:)
+
+          notification_attrs = {
+            user: tweet.user,
+            actor: user,
+            tweet: tweet,
+            verb: Constants::Notification::VERBS[:liked]
+          }
+
+          Repositories::NotificationRepo.new.create(attrs: notification_attrs)
+
+          Success(like:)
+        end
       end
 
       def create_like(attrs:)
