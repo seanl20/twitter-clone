@@ -4,28 +4,39 @@
   </div>
   <div>
     <% @notifications.each do |notification| %>
-      <% if notification.follow? %>
-        <div class="pb-2">
-          <% if notification.actor.avatar.present? %>
-            <%= image_tag current_user.avatar, size: "48x48", class: "rounded-circle" %>
-          <% else %>
-            <%= image_tag "user.png", size: "48x48", class: "rounded-circle" %>
-          <% end %>
-          <p><span class="fw-bold"><%= notification.actor.display_name %></span> followed you</p>
+      <%= turbo_frame_tag dom_id(notification) do %>
+        <div class="py-2 px-3 notifications d-flex justify-content-between">
+          <div>
+            <% if notification.follow? %>
+              <% if notification.actor.avatar.present? %>
+                <%= image_tag current_user.avatar, size: "48x48", class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag "user.png", size: "48x48", class: "rounded-circle" %>
+              <% end %>
+              <p><span class="fw-bold"><%= notification.actor.display_name %></span> followed you</p>
+            <% elsif notification.liked? %>
+              <% if notification.actor.avatar.present? %>
+                <%= image_tag current_user.avatar, size: "48x48", class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag "user.png", size: "48x48", class: "rounded-circle" %>
+              <% end %>
+              <p class="mb-1"><span class="fw-bold"><%= notification.actor.display_name %></span> liked your tweet</p>
+              <p class="text-muted mb-1"><%= notification.tweet.body %></p>
+              <%= link_to "Show all", tweet_path(notification.tweet), class: "tweet-link mb-1" %>
+            <% elsif notification.mentioned? %>
+              <% if notification.actor.avatar.present? %>
+                <%= image_tag current_user.avatar, size: "48x48", class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag "user.png", size: "48x48", class: "rounded-circle" %>
+              <% end %>
+              <p class="mb-1"><span class="fw-bold"><%= notification.actor.display_name %></span> mentioned you</p>
+              <%= link_to "Show @#{notification.actor.username}", user_path(notification.actor), class: "tweet-link mb-1" %>
+            <% end %>
+          </div>
+          <div>
+            <%= link_to "", notification_path(notification), data: { "turbo-method": :delete }, class: "d-block btn-close" %>
+          </div>
         </div>
-      <% elsif notification.liked? %>
-        <div class="pb-2">
-          <% if notification.actor.avatar.present? %>
-            <%= image_tag current_user.avatar, size: "48x48", class: "rounded-circle" %>
-          <% else %>
-            <%= image_tag "user.png", size: "48x48", class: "rounded-circle" %>
-          <% end %>
-          <p class="mb-1"><span class="fw-bold"><%= notification.actor.display_name %></span> liked your tweet</p>
-          <p class="text-muted mb-1"><%= notification.tweet.body %></p>
-          <%= link_to "Show all", tweet_path(notification.tweet), class: "tweet-link mb-1" %>
-        </div>
-      <% elsif notification.metioned? %>
-        <div class="pb-2"></div>
       <% end %>
     <% end %>
   </div>

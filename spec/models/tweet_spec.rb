@@ -77,6 +77,12 @@ RSpec.describe Tweet, type: :model do
         tweet = Tweet.create(user:, body: "Mentions @testuser")
         expect(tweet.mentions.size).to eq(1)
       end
+
+      it "creates new notifications" do
+        expect do
+          Tweet.create(user:, body: "Mentions @testuser")
+        end.to change { Notification.count }.by(1)
+      end
     end
   end
 end

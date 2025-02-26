@@ -1,7 +1,7 @@
 module Repositories
   class MentionRepo
-    def find_or_create(attrs:)
-      Mention.find_or_create_by(attrs)
+    def create(attrs:)
+      Mention.create!(attrs)
     end
   end
 end
