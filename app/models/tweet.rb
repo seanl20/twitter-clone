@@ -34,7 +34,7 @@ class Tweet < ApplicationRecord
     end
   end
 
-  before_save :parse_and_save_mentions
+  after_save :parse_and_save_mentions
 
   def parse_and_save_mentions
     matches = body.scan(Constants::Regexp::MENTIONS_REGEX)
@@ -44,10 +44,17 @@ class Tweet < ApplicationRecord
       mentioned_user = Repositories::UserRepo.new.get_by_username(username: mention.delete("@"))
 
       next if mentioned_user.blank?
+      next if mentions.exists?(mentioned_user:)
 
-      attrs = { mentioned_user: }
+      mentions.create(mentioned_user:)
 
-      mentions << Repositories::MentionRepo.new.find_or_create(attrs:)
+      notification_attrs = {
+        user: mentioned_user,
+        actor: user,
+        verb: Constants::Notification::VERBS[:mentioned]
+      }
+
+      Repositories::NotificationRepo.new.create(attrs: notification_attrs)
     end
   end
 end

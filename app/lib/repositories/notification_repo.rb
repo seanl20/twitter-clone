@@ -10,5 +10,11 @@ module Repositories
         .where(user:)
         .order(created_at: :desc)
     end
+
+    def delete(id:)
+      Notification
+        .find(id)
+        .destroy
+    end
   end
 end

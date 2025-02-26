@@ -7,7 +7,7 @@ module Constants
     VERBS = {
       follow: "followed-me",
       liked: "liked-tweet",
-      metioned: "mentioned-me"
+      mentioned: "mentioned-me"
     }
   end
 end

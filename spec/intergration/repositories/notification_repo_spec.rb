@@ -71,4 +71,29 @@ RSpec.describe Repositories::NotificationRepo do
       end
     end
   end
+
+  describe "#delete" do
+    subject(:delete) { described_class.new.delete(id:) }
+
+    let!(:user_1) { FactoryBot.create(:user) }
+    let!(:user_2) { FactoryBot.create(:user) }
+
+    let!(:notification) { FactoryBot.create(:notification, user: user_1, actor: user_2, created_at: 3.minutes.ago) }
+
+    context "when notification exists" do
+      let(:id) { notification.id }
+
+      it "delete notification" do
+        expect { delete }.to change { Notification.count }.by(-1)
+      end
+    end
+
+    context "when notification does not exists" do
+      let(:id) { "test" }
+
+      it "returns record invalid" do
+        expect { delete }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 end
