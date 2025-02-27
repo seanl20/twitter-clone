@@ -17,6 +17,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:messages) }
   it { is_expected.to have_and_belong_to_many(:message_threads) }
   it { is_expected.to have_many(:notifications).dependent(:destroy) }
+  it { is_expected.to have_many(:tweet_activities).dependent(:destroy) }
 
   it { should validate_uniqueness_of(:username).case_insensitive.allow_blank }
 
