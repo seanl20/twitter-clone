@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "activerecord-import"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
