@@ -16,8 +16,6 @@ class TweetsController < ApplicationController
         format.html { redirect_to dashboard_path }
         format.turbo_stream
       end
-    in Failure(:invalid)
-      redirect_to dashboard_path
     end
   end
 

@@ -45,7 +45,7 @@ RSpec.describe Repositories::RetweetRepo do
       let(:id) { retweet.id }
 
       it "delete tweet" do
-        expect { delete_by_tweet }.to change { retweet.count }.by(-1)
+        expect { delete_by_tweet }.to change { Retweet.count }.by(-1)
       end
     end
 

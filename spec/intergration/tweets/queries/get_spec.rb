@@ -21,7 +21,7 @@ RSpec.describe Tweets::Queries::Get, "#call", :db do
       expect(call.tweet).to eq(tweet)
     end
 
-    it "queses up view tweet job" do
+    it "queues up view tweet job" do
       call
 
       expect(ViewTweetJob).to have_received(:perform_later).with(tweet:, user:)

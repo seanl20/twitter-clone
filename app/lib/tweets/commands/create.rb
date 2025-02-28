@@ -6,13 +6,11 @@ module Tweets
       def call(params:, user:)
         attrs = Tweets::Changesets::Create.map(params).merge({ user: })
 
-        Success(tweet: create_tweet(attrs:, user:))
-      end
+        tweet = Repositories::TweetRepo.new.create(attrs:)
 
-      def create_tweet(attrs:, user:)
-        TweetPresenter.new(tweet: Repositories::TweetRepo.new.create(attrs:), current_user: user)
-      rescue ActiveRecord::RecordInvalid
-        Failure(:invalid)
+        TweetActivity::TweetedJob.perform_later(actor: user, tweet:)
+
+        Success(tweet: TweetPresenter.new(tweet:, current_user: user))
       end
     end
   end
