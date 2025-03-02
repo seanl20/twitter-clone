@@ -4,9 +4,11 @@ module Dashboard
   module Queries
     class Index < Query
       def call(user:)
-        following_users = user.following_users
+        tweet_activities = user.tweet_activities.order(created_at: :desc).map do |tweet_activity|
+          TweetPresenter.new(tweet: tweet_activity.tweet, current_user: user)
+        end
 
-        Repositories::TweetRepo.new.get_by_user(user: following_users).map { |tweet| TweetPresenter.new(tweet:, current_user: user) }
+        tweet_activities
       end
     end
   end
