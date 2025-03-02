@@ -4,7 +4,7 @@ module Tweets
   module Queries
     class GetByUser < Query
       def call(user:)
-        Repositories::TweetRepo.new.get_by_user(user:).map { |tweet| TweetPresenter.new(tweet:, current_user: user) }
+        Repositories::TweetRepo.new.get_by_user(user:).map { |tweet| TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil) }
       end
     end
   end

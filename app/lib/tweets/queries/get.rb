@@ -8,7 +8,7 @@ module Tweets
 
         ViewTweetJob.perform_later(tweet:, user:)
 
-        TweetPresenter.new(tweet:, current_user: user)
+        TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil)
       end
     end
   end

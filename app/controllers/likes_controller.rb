@@ -17,7 +17,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    result = Likes::Commands::Delete.new.call(tweet:, id: params[:id])
+    result = Likes::Commands::Delete.new.call(tweet:, id: params[:id], user: current_user)
 
     case result
     in Success(tweet:)

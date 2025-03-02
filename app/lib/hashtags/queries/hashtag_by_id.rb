@@ -7,7 +7,7 @@ module Hashtags
         hashtag = Repositories::HashtagRepo.new.get(id:)
 
         tweet_presenters = hashtag.tweets.order(created_at: :desc).map do |tweet|
-          TweetPresenter.new(tweet:, current_user: user)
+          TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil)
         end
 
         return hashtag, tweet_presenters

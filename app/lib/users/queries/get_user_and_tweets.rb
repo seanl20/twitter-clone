@@ -8,7 +8,7 @@ module Users
         tweets = Repositories::TweetRepo.new.get_by_user(user:)
 
         tweet_presenters = tweets.map do |tweet|
-          TweetPresenter.new(tweet:, current_user: user)
+          TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil)
         end
         return user, tweet_presenters
       end

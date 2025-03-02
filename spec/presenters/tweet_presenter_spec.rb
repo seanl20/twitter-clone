@@ -16,7 +16,7 @@ RSpec.describe TweetPresenter, :freeze_time, type: :presenter do
       let!(:tweet) { FactoryBot.create(:tweet, user:, created_at: 2.days.ago) }
 
       it "displays the shortened date format" do
-        expect(TweetPresenter.new(tweet:, current_user: user).created_at).to eq("Sep 1")
+        expect(TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil).created_at).to eq("Sep 1")
       end
     end
 
@@ -24,7 +24,7 @@ RSpec.describe TweetPresenter, :freeze_time, type: :presenter do
       let!(:tweet) { FactoryBot.create(:tweet, user:, created_at: 2.hours.ago) }
 
       it "displays how many hours have past" do
-        expect(TweetPresenter.new(tweet:, current_user: user).created_at).to eq("about 2 hours")
+        expect(TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil).created_at).to eq("about 2 hours")
       end
     end
   end

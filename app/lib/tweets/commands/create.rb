@@ -10,7 +10,7 @@ module Tweets
 
         TweetActivity::TweetedJob.perform_later(actor: user, tweet:)
 
-        Success(tweet: TweetPresenter.new(tweet:, current_user: user))
+        Success(tweet: TweetPresenter.new(tweet:, current_user: user, tweet_activity: nil))
       end
     end
   end

@@ -9,7 +9,7 @@ module ReplyTweets
         reply_tweets_in_presenter = tweet.reply_tweets.includes(
           :liked_users, :bookmarked_users, :retweeted_users, :user
         ).order(created_at: :desc).map do |reply_tweet|
-          TweetPresenter.new(tweet: reply_tweet, current_user: user)
+          TweetPresenter.new(tweet: reply_tweet, current_user: user, tweet_activity: nil)
         end
 
         reply_tweets_in_presenter
