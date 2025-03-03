@@ -17,8 +17,12 @@ RSpec.describe ReplyTweets::Commands::Create, "#call", :db do
       }
     end
 
-    it "returns success" do
+    it "creates reply tweet" do
       expect { call }.to change { Tweet.count }.by(1)
+    end
+
+    it "creates tweet activity" do
+      expect { call }.to change { TweetActivity.count }.by(1)
     end
   end
 
@@ -29,8 +33,12 @@ RSpec.describe ReplyTweets::Commands::Create, "#call", :db do
       }
     end
 
-    it "returns failure" do
+    it "does not create reply tweet" do
       expect { call }.to change { Tweet.count }.by(0)
+    end
+
+    it "does not create tweet activity" do
+      expect { call }.to change { TweetActivity.count }.by(0)
     end
   end
 end
