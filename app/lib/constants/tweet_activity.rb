@@ -10,7 +10,5 @@ module Constants
       replied: "replied",
       retweeted: "retweeted"
     }
-
-    VERBS_RENDER = %w[liked replied retweeted]
   end
 end

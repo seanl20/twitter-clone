@@ -5,6 +5,7 @@ RSpec.describe "DELETE /tweets/:tweet_id/likes/:id", type: :request do
   let!(:tweet) { FactoryBot.create(:tweet, user:) }
 
   let!(:retweet) { FactoryBot.create(:retweet, user:, tweet:) }
+  let!(:tweet_activity) { FactoryBot.create(:tweet_activity, user:, actor: user, tweet:, verb: Constants::TweetActivity::VERBS[:retweeted]) }
 
   context "when user is not signed in" do
     it "redirect to sign in path" do
