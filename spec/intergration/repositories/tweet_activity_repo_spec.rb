@@ -83,7 +83,7 @@ RSpec.describe Repositories::TweetActivityRepo do
     let!(:verb) { Constants::TweetActivity::VERBS[:liked] }
 
     context "when tweet activity exists" do
-      let!(:tweet_activity) { FactoryBot.create(:tweet_activity, user:, actor:, tweet:, verb: Constants::TweetActivity::VERBS[:liked]) }
+      let!(:tweet_activity) { FactoryBot.create(:tweet_activity, user:, actor:, tweet:, verb:) }
       let(:id) { tweet_activity.id }
 
       it "delete tweet_activity" do

@@ -7,7 +7,7 @@ module ReplyTweets
         ActiveRecord::Base.transaction do
           reply_tweet = create_reply_tweet(params:, user:, tweet:)
 
-          create_like_tweet_activity(user: tweet.user, actor: user, tweet:) unless reply_tweet.failure
+          create_replied_tweet_activity(user: tweet.user, actor: user, tweet:) unless reply_tweet.failure
 
           reply_tweet
         end
@@ -21,7 +21,7 @@ module ReplyTweets
         Failure(:invalid)
       end
 
-      def create_like_tweet_activity(user:, actor:, tweet:)
+      def create_replied_tweet_activity(user:, actor:, tweet:)
         attrs = {
           user:,
           actor:,

@@ -14,7 +14,7 @@ class TweetPresenter
   delegate :display_name, :username, to: :user
 
   def tweet_activity_html
-    case tweet_activity.verb
+    case tweet_activity&.verb
     when Constants::TweetActivity::VERBS[:liked]
       "<p class=\"fw-bold text-muted mb-0\" style=\"margin-left: 5rem; font-size: 13px\">#{tweet_activity.actor.display_name} liked</p>"
     when Constants::TweetActivity::VERBS[:replied]
