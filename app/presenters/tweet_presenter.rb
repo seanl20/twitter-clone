@@ -19,6 +19,8 @@ class TweetPresenter
       "<p class=\"fw-bold text-muted mb-0\" style=\"margin-left: 5rem; font-size: 13px\">#{tweet_activity.actor.display_name} liked</p>"
     when Constants::TweetActivity::VERBS[:replied]
       "<p class=\"fw-bold text-muted mb-0\" style=\"margin-left: 5rem; font-size: 13px\">#{tweet_activity.actor.display_name} replied to</p>"
+    when Constants::TweetActivity::VERBS[:retweeted]
+      "<p class=\"fw-bold text-muted mb-0\" style=\"margin-left: 5rem; font-size: 13px\">#{tweet_activity.actor.display_name} retweeted</p>"
     else
       ""
     end
