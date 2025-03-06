@@ -4,7 +4,7 @@ module Dashboard
   module Queries
     class Index < Query
       def call(user:, page:)
-        tweet_activities = user.tweet_activities.order(created_at: :desc).page(1).per(5)
+        tweet_activities = user.tweet_activities.order(created_at: :desc).page(1).per(10)
 
         tweet_activities_data = {
           tweet_activities: tweet_activities.map do |tweet_activity|
