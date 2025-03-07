@@ -3,8 +3,8 @@
 module Dashboard
   module Queries
     class Index < Query
-      def call(user:, page:)
-        tweet_activities = user.tweet_activities.order(created_at: :desc).page(1).per(10)
+      def call(user:, page: 1)
+        tweet_activities = user.tweet_activities.order(created_at: :desc).page(page).per(10)
 
         tweet_activities_data = {
           tweet_activities: tweet_activities.map do |tweet_activity|
@@ -15,6 +15,8 @@ module Dashboard
           last_page: tweet_activities.last_page?,
           total_pages: tweet_activities.total_pages
         }
+
+        puts "\n\n\n\n\n\n\n\n\n#{tweet_activities.ids}\n\n\n\n\n\n\n\n\n"
 
         tweet_activities_data
       end
