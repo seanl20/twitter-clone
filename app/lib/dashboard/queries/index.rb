@@ -16,8 +16,6 @@ module Dashboard
           total_pages: tweet_activities.total_pages
         }
 
-        puts "\n\n\n\n\n\n\n\n\n#{tweet_activities.ids}\n\n\n\n\n\n\n\n\n"
-
         tweet_activities_data
       end
     end
